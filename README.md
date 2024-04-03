@@ -37,15 +37,15 @@ minikube start
 helm install python-chart python-chart-0.1.0.tgz
 ```
 
-**Usage**
+## **Usage**
 
 This will open your default web browser and navigate to your Flask application.
 
-**Configuration**
+## **Configuration**
 
 Modify the `values.yaml` file to customize the deployment configuration, such as the number of replicas, resource limits, and service type.
 
-**Cleanup**
+## **Cleanup**
 
 To remove the deployed resources, run:
 ```bash
