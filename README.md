@@ -1,48 +1,61 @@
-# Flask Web App Project
+# Flask App Deployment with Helm
 
-This is a simple Flask web application that demonstrates how to render HTML pages using Flask's `render_template` function. The application defines two routes: `/` and `/route2`, each rendering a different HTML template.
+This repository contains files for deploying a Flask application to Kubernetes using Helm.
 
-## Project Structure
+## Prerequisites
 
-The project directory structure is as follows:
+Before you begin, ensure you have the following installed:
 
-```
-project/
-│
-├── app/
-│ ├── server.py
-│ ├── templates/
-│ │ ├── main_page.html
-│ │ └── route_two.html
-│ └── Dockerfile
+- [Docker](https://docs.docker.com/get-docker/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [Helm](https://helm.sh/docs/intro/install/)
 
-```
+## Getting Started
 
+1. Clone this repository:
 
-- `server.py`: This is the main Python script that defines the Flask application.
-- `templates/`: This directory contains HTML templates used by the Flask application.
-  - `main_page.html`: HTML template for the main page.
-  - `route_two.html`: HTML template for the second route.
-
-## Docker
-
-The project includes a Dockerfile for containerization. You can build and run the Docker container using the following commands:
-
-1. **Build the Docker image:**
-```
-docker build -t my-flask-app .
+```bash
+   git clone <repository_url>
+   cd <repository_directory>
 ```
 
-2. **Run the Docker container:**
+2. Build The Docker image
+
 ```
-docker run -p 5000:5000 my-flask-app
+docker build -t zezo001/flask-app .
+```
+
+3. Start Minikube:
+
+```
+minikube start
+```
+
+4. Install the Helm chart:
+
+```
+helm install python-chart python-chart-0.1.0.tgz
+```
+
+**Usage**
+
+This will open your default web browser and navigate to your Flask application.
+
+**Configuration**
+
+Modify the `values.yaml` file to customize the deployment configuration, such as the number of replicas, resource limits, and service type.
+
+**Cleanup**
+
+To remove the deployed resources, run:
+```bash
+helm uninstall python-chart
+minikube delete
 ```
 
 
-## Usage
 
-Once the Docker container is running, you can access the Flask application in your browser at `http://localhost:5000/`.
 
-## Dependencies
 
-This project requires Python 3.x and Flask. Dependencies are managed using pip. Ensure you have Docker installed to build and run the Docker container.
+
+
