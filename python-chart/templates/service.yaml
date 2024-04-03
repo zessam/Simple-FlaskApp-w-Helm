@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-app-service
-  labels:
-    app: flask-app
+  name: flask-service
 spec:
-  type: "{{ .Values.service.type }}"
-  ports:
-    - port: "{{ .Values.service.port }}"
-      targetPort: "{{ .Values.service.targetPort }}"
   selector:
     app: flask-app
+  type: {{ .Values.service.type }}  # Adjust based on values.yaml (LoadBalancer, ClusterIP, etc.)
+  ports:
+  - protocol: TCP
+    port: {{ .Values.service.port }}  # Adjust based on values.yaml (external port)
+    targetPort: 5000  # Target port within the container

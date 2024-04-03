@@ -1,11 +1,9 @@
+# values.yaml
+image:
+  repository: zezo001/flask-app  # Replace with your actual image repository
+  tag: latest
 
-replicaCount: 1
-
-service:
-  type: LoadBalancer
-  port: 80
-  targetPort: 5000
-
+# Resources (optional, use defaults if not needed)
 resources:
   requests:
     memory: "64Mi"
@@ -14,11 +12,11 @@ resources:
     memory: "128Mi"
     cpu: "500m"
 
-spec:
-  containers:
-    - name: flask-app
-      image:
-        repository: zezo001/flask-app
-        tag: latest
-      ports: 
-        - containerPort: 5000
+# Service configuration (optional, use defaults if not needed)
+service:
+  type: LoadBalancer  # Adjust based on your access needs (e.g., ClusterIP)
+  port: 5000
+  targetPort: 5000
+
+# Replica count (optional, use default of 1 if not needed)
+replicaCount: 1
