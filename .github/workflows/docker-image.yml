@@ -21,8 +21,8 @@ jobs:
       run: docker build . --file Dockerfile --tag flask-app:${{ steps.timestamp.outputs.timestamp }}
     - name: Authenticate with GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: Push the Docker image
-      run: docker tag flask-app:${{ steps.timestamp.outputs.timestamp }} ghcr.io/flask-app:latest 
-    
-
+    - name: Tag the Docker image for GitHub Container Registry
+      run: docker tag flask-app:${{ steps.timestamp.outputs.timestamp }} ghcr.io/${{ github.repository_owner }}/flask-app:latest
+    - name: Push the Docker image to GitHub Container Registry
+      run: docker push ghcr.io/${{ github.repository_owner }}/flask-app:latest
 
