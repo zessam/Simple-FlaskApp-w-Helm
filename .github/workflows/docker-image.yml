@@ -13,11 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  
+    - name: Create timestamp
+      id: timestamp
+      run: echo "::set-output name=timestamp::$(date +%s)"
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag flask-app:$(date +%s)
+      run: docker build . --file Dockerfile --tag flask-app:${{ steps.timestamp.outputs.timestamp }}
     - name: Authenticate with GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Push the Docker image
-      run: docker tag flask-app:$(date +%s) ghcr.io/flask-app:latest 
+      run: docker tag flask-app:${{ steps.timestamp.outputs.timestamp }} ghcr.io/flask-app:latest 
     
+
+
