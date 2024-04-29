@@ -15,10 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag flask-app:$(date +%s)
+      run: |
+        IMAGE_TAG=$(date +%s)
+        docker build . --file Dockerfile --tag flask-app:$IMAGE_TAG
     - name: Authenticate with GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Tag the Docker image for GitHub Container Registry
-      run: docker tag flask-app:$(date +%s) ghcr.io/zessam/repository:latest
+      run: docker tag flask-app:$IMAGE_TAG ghcr.io/zessam/repository:latest
     - name: Push the Docker image to GitHub Container Registry
       run: docker push ghcr.io/zessam/repository:latest
