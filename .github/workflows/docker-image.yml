@@ -23,7 +23,3 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Push the Docker image
       run: docker tag flask-app:${{ steps.timestamp.outputs.timestamp }} ghcr.io/flask-app:latest 
-    
-
-
-
